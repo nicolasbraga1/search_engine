@@ -7,6 +7,7 @@ def create_response(cases, response, word, name):
         })
     return response
 
+
 def find__words(lines, word, word_exists):
     cases = []
     for index, line in enumerate(lines, 1):
@@ -20,6 +21,7 @@ def find__words(lines, word, word_exists):
                 })
     return cases
 
+
 def exists_word(word, instance):
     response = []
     word_exists = True
@@ -30,5 +32,13 @@ def exists_word(word, instance):
         response = create_response(cases, response, word, archive_name)
     return response
 
+
 def search_by_word(word, instance):
-    """Aqui irá sua implementação"""
+    response = []
+    word_exists = False
+    for archive in instance._data:
+        archive_lines = archive['linhas_do_arquivo']
+        cases = find__words(archive_lines, word, word_exists)
+        archive_name = archive['nome_do_arquivo']
+        response = create_response(cases, response, word, archive_name)
+    return response
